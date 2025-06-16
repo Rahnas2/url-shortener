@@ -29,7 +29,7 @@ const LoginForm = () => {
 
         setData({ ...data, [name]: value })
 
-        
+
         try {
             await loginSchema.validateAt(name, { ...data, [name]: value });
 
@@ -79,13 +79,15 @@ const LoginForm = () => {
     }
 
     return (
-        <div className='flex flex-col rounded-md bg-secondary p-5 shadow-sm'>
+        <div className='flex flex-col rounded-md bg-secondary p-5 shadow-sm w-full'>
             {/* Brand Icon */}
             <BrandIcon mode='auth' />
 
             <div className='text-center'>Welcome back! Login in to continue</div>
 
-            <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 3, width: '400px' }}>
+            <Box sx={{
+                p: 2, display: 'flex', flexDirection: 'column', gap: 3, width: '100%',
+            }}>
                 <CustomTextField onChange={handleChange} id="email" name='email' label="Email" type='email' value={data.email} variant="outlined" error={!!error?.email} helperText={error.email} />
                 <CustomTextField onChange={handleChange} id="password" name='password' label="Password" type='password' value={data.password} autoComplete='off' variant="outlined" error={!!error.password} helperText={error.password} />
             </Box>

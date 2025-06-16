@@ -83,13 +83,13 @@ const RegisterForm = () => {
 
 
     return (
-        <div className="flex flex-col rounded-md bg-secondary p-5 shadow-sm">
+        <div className="flex flex-col rounded-md bg-secondary p-5 shadow-sm w-full">
             {/* Brand Icon */}
             <BrandIcon mode="auth" />
 
             <div className='text-center'>Create your account to get started</div>
 
-            <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 3, width: '400px' }}>
+            <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 3, width: '100%' }}>
                 <CustomTextField onChange={handleChange} id="name" name='name' label="Name" type='text' value={data.name} variant="outlined" error={!!error.name} helperText={error.name} />
                 <CustomTextField onChange={handleChange} id="email" name='email' label="Email" type='email' value={data.email} variant="outlined" error={!!error.email} helperText={error.email} />
                 <CustomTextField onChange={handleChange} id="mobile" name='mobile' label="Mobile" type='text' value={data.mobile} variant="outlined" error={!!error.mobile} helperText={error.mobile} />
