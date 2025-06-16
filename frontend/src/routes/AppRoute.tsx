@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Home from '../pages/Home'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
@@ -43,7 +43,9 @@ const AppRoute = () => {
                     <ProtectedRoute><Home /></ProtectedRoute>} />
                 <Route path='/login' element={<PublicRoute ><Login /></PublicRoute>} />
                 <Route path='/register' element={<PublicRoute><Register /></PublicRoute>} />
-                 <Route path='/email-verified' element={<EmailVerification />} />
+                <Route path='/email-verified' element={<EmailVerification />} />
+
+                <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </BrowserRouter>
     )

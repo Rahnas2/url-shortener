@@ -11,9 +11,10 @@ export const getUserShortUrlsApi = async() => {
 }
 
 export const redirectToOriginalUrlApi = async(shortCode: string) => {
-    const response = await axiosInstance.get(`/api/url/${shortCode}`)
+    await axiosInstance.get(`/api/url/${shortCode}`)
 }
 
 export const deleteShortUrlApi = async(shortCode: string) => {
     const response = await axiosInstance.delete(`/api/url/${shortCode}`)
+    return response.data
 }
