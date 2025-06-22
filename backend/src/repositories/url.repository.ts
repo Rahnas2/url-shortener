@@ -3,9 +3,10 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Url, UrlDocument } from "src/schemas/url.schema";
 import { CreateShortUrlDto } from "src/url/dto/create-short-url.dto";
+import { IUrlRepository } from "./interfaces/url-repository.interface";
 
 @Injectable()
-export class UrlRepository {
+export class UrlRepository implements IUrlRepository {
 
     constructor(@InjectModel(Url.name) private urlModel: Model<Url>) {}
 

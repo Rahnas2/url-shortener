@@ -7,9 +7,18 @@ import { Url, UrlSchema } from "src/schemas/url.schema";
 import { JwtModule } from "@nestjs/jwt";
 
 @Module({
-    imports: [MongooseModule.forFeature([{name: Url.name, schema: UrlSchema}]), 
-JwtModule.register({})],
+    imports: [MongooseModule.forFeature([{ name: Url.name, schema: UrlSchema }]),
+    JwtModule.register({})],
     controllers: [UrlController],
-    providers: [UrlService, UrlRepository]
+
+    providers: [{
+        provide: 'IUrlService',
+        useClass: UrlService,
+    }, {
+        provide: 'IUrlRepository',
+        useClass: UrlRepository
+    }
+    ],
+    exports: ['IUrlRepository']
 })
-export class UrlModule {}
+export class UrlModule { }

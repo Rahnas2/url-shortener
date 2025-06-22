@@ -9,6 +9,14 @@ import { JwtModule } from "@nestjs/jwt";
     imports: [MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     JwtModule.register({})],
     controllers: [AuthController],
-    providers: [AuthService, UserRepository]
-})   
+    providers: [{
+        provide: 'IAuthService',
+        useClass: AuthService
+    }, {
+        provide: 'IUserRepository',
+        useClass: UserRepository,
+    },
+    ],
+    exports: ['IUserRepository']
+})
 export class AuthModule { }

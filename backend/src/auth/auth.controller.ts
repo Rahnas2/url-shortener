@@ -1,27 +1,29 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query, Req, Res, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, HttpStatus, Inject, Post, Query, Req, Res, UsePipes, ValidationPipe } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { LoginUserDto } from "./dto/login-user.dto";
 import { Request, Response } from "express";
+import { AUTH_ROUTE, LOGIN_ROUTE, LOGOUT_ROUTE, REFRESH_TOKEN_ROUTE, REGISTER_ROUTE, VERIFY_EMAIL_ROUTE } from "./route.constants";
+import { IAuthService } from "./interfaces/auth_service.interface";
 
-@Controller('api/auth')
+@Controller(AUTH_ROUTE)
 @UsePipes(new ValidationPipe())
 export class AuthController {
 
-    constructor(private authService: AuthService) { }
+    constructor(@Inject('IAuthService') private readonly authService: IAuthService) { }
 
-    @Post('register')
+    @Post(REGISTER_ROUTE)
     async register(@Body() createUserDto: CreateUserDto) {
         return this.authService.register(createUserDto)
     }
 
-    @Post('login')
+    @Post(LOGIN_ROUTE)
     @HttpCode(HttpStatus.OK)
     async login(@Body() loginUserDto: LoginUserDto, @Res({ passthrough: true }) res: Response) {
         return this.authService.login(loginUserDto, res)
     }
 
-    @Get('verify-email')
+    @Get(VERIFY_EMAIL_ROUTE)
     async verifyEmail(@Query('token') token: string, @Res() res: Response) {
         const { verified, payload } = await this.authService.verifyEmail(token);
 
@@ -32,13 +34,13 @@ export class AuthController {
         res.redirect(`${process.env.CLIENT_URI}/email-verified?status=${status}&message=${message}&email=${email}`);
     }
 
-    @Get('refresh-token')
+    @Get(REFRESH_TOKEN_ROUTE)
     async refreshToken(@Req() req: Request) {
         const refreshToken = req.cookies.refreshToken
         return await this.authService.refreshToken(refreshToken)
     }
 
-    @Post('logout')
+    @Post(LOGOUT_ROUTE)
     @HttpCode(HttpStatus.OK)
     async logout(@Res({ passthrough: true }) res: Response) {
 

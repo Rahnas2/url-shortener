@@ -3,9 +3,10 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { CreateUserDto } from "src/auth/dto/create-user.dto";
 import { User, UserDocument } from "src/schemas/user.schema";
+import { IUserRepository } from "./interfaces/user_repository.interface";
 
 @Injectable()     
-export class UserRepository {
+export class UserRepository implements IUserRepository{
 
     constructor(@InjectModel(User.name) private userModel: Model<User>){}
 
@@ -14,15 +15,15 @@ export class UserRepository {
     }
 
     async findUserByEmail (email: string): Promise<UserDocument | null> {
-        return this.userModel.findOne({email})
+        return await this.userModel.findOne({email})
     } 
 
-    findUserByIdAndUpdate (id: string, data: Partial<User>) {
-        return this.userModel.findByIdAndUpdate(id, data, {new: true})
+    async findUserByIdAndUpdate (id: string, data: Partial<User>) {
+        return await this.userModel.findByIdAndUpdate(id, data, {new: true})
     }
 
-    deleteUserById (id: string) {
-        return this.userModel.findByIdAndDelete(id)
+    async deleteUserById (id: string) {
+        return await this.userModel.findByIdAndDelete(id)
     }
 
 }

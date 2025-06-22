@@ -1,14 +1,16 @@
-import { ConflictException, Injectable, NotFoundException } from "@nestjs/common";
+import { ConflictException, Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { CreateShortUrlDto } from "./dto/create-short-url.dto";
 import { UrlRepository } from "src/repositories/url.repository";
 import { generateShortCode } from "src/utils/generate-short-code";
 import { Types } from "mongoose";
 import { ConfigService } from "@nestjs/config";
+import { IUrlService } from "./interfaces/url_service.interface";
+import { IUrlRepository } from "src/repositories/interfaces/url-repository.interface";
 
 @Injectable()
-export class UrlService {
+export class UrlService implements IUrlService {
 
-    constructor(private readonly urlRepository: UrlRepository, 
+    constructor(@Inject('IUrlRepository') private readonly urlRepository: IUrlRepository, 
         private configService: ConfigService,
     ) {}
     async createShortUrl(createShortUrlDto: CreateShortUrlDto, user: string){
