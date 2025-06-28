@@ -1,7 +1,6 @@
 import { Body, Controller, Delete, Get, Inject, Param, Post, Res, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
 import { AuthGuard } from "src/auth/auth.guard";
 import { CreateShortUrlDto } from "./dto/create-short-url.dto";
-import { UrlService } from "./url.service";
 import { CurrentUser } from "src/common/decorators/current-user.decorator";
 import { JwtPayloadDto } from "src/auth/dto/jwt-payload.dto";
 import { Response } from "express";

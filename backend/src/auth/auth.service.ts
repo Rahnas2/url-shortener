@@ -1,10 +1,8 @@
 import { ConflictException, Inject, Injectable, UnauthorizedException } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { LoginUserDto } from "./dto/login-user.dto";
-import { UserRepository } from "src/repositories/user.repository";
-
 import { hash, compare } from 'bcryptjs'
-import { JwtService, JwtVerifyOptions } from "@nestjs/jwt";
+import { JwtService } from "@nestjs/jwt";
 import { jwtConstants } from "./constants";
 import { Response } from "express";
 import { ConfigService } from "@nestjs/config";
@@ -12,7 +10,6 @@ import { MailerService } from "@nestjs-modules/mailer";
 import { EmailVerification } from "src/utils/email-verification-mail";
 import { JwtPayloadDto } from "./dto/jwt-payload.dto";
 import { IAuthService } from "./interfaces/auth_service.interface";
-import { IUrlRepository } from "src/repositories/interfaces/url-repository.interface";
 import { IUserRepository } from "src/repositories/interfaces/user_repository.interface";
 
 
